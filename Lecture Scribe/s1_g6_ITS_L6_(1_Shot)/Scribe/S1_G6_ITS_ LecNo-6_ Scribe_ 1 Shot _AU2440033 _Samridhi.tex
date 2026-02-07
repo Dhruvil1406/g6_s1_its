@@ -1,0 +1,374 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+
+
+% ===================== PACKAGES =====================
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{xcolor} 
+
+% ===================== HEADER & FOOTER =====================
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{CSE 400: Fundamentals of Probability in Computing}
+\rhead{Lecture - 6 scribe }
+\cfoot{\thepage}
+
+% ===================== CUSTOM COMMANDS =====================
+\newcommand{\solution}{
+    \vspace{0.5cm}
+    \noindent\textbf{\textcolor{blue}{Solution:}}
+    \vspace{0.2cm}
+    
+    % --- STUDENT: TYPE YOUR SOLUTION BELOW THIS LINE ---
+    
+    \vfill 
+}
+
+% ===================== TITLE =====================
+\title{
+    \normalsize School of Engineering and Applied Science (SEAS), Ahmedabad University \\
+    \vspace{0.2cm}
+    \textbf{CSE 400: Fundamentals of Probability in Computing}\\
+    \Large {Lecture - 6 scribe}
+}
+\author{} 
+\date{}
+
+\begin{document}
+\maketitle
+
+\vspace{-2cm}
+\begin{center}
+    \begin{tabular}{ll}
+        \textbf{Name:} & {Samridhi Mehrotra \hspace{2.5in}} \\ [1.5ex]
+        \textbf{Enrollment No:} & {AU2440033 \hspace{2.5in}} \\ [1.5ex]
+        \textbf{Email:} & {samridhi.m@ahduni.edu.in \hspace{2.1in}} \\ [1.5ex]
+        
+    \end{tabular}
+\end{center}
+
+\hrule
+\vspace{0.5cm}
+
+
+
+\title{\textbf{Lecture 6: Discrete Random Variables, Expectation, and Problem Solving}}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section {Overview}
+
+\item This lecture revisits the concept of \textbf{random variables}, introduces and formalizes \textbf{independent events}, and then develops \textbf{types of discrete random variables}, including \textbf{Bernoulli}, \textbf{Binomial}, and \textbf{Geometric} random variables. 
+\item The lecture also reviews \textbf{probability mass functions (PMFs)}, includes multiple \textbf{worked examples}, and concludes with a \textbf{recap of Bayes’ Theorem} and its applications to structured probability problems.
+
+\section{Definitions and Notation}
+
+\subsection{Random Variable (RV)}
+A random variable is a function that assigns a real number to each outcome in the sample space of a random experiment.
+
+\item The distribution of a random variable can be visualized using a bar diagram:
+\begin{itemize}
+    \item The $x$-axis represents the values the random variable can take.
+    \item The height of the bar at value $a$ is the probability $\Pr[X = a]$.
+    \item Each probability is computed by evaluating the probability of the corresponding event in the sample space.
+\end{itemize}
+
+\subsection{Discrete Random Variable}
+A random variable is said to be discrete if it can take on at most a countable number of possible values.
+
+\item \textbf{Properties:}
+\begin{itemize}
+    \item Countable support
+    \item Probabilities assigned to single values
+    \item Each possible value has strictly positive probability
+    \item Characterized by a Probability Mass Function (PMF)
+\end{itemize}
+
+\subsection{Continuous Random Variable (Contrast)}
+A continuous random variable has:
+\begin{itemize}
+    \item Uncountable support
+    \item Probabilities assigned to intervals of values
+    \item Each exact value has probability zero
+    \item Characterized by a Probability Density Function (PDF)
+\end{itemize}
+
+(This distinction is shown visually in the lecture slides using distribution diagrams.)
+
+\section{Main Results}
+
+\subsection{Independent Events}
+
+\item \subsubsection{Definition (Two Events)}
+\item Two events $A$ and $B$ are independent if:
+\[
+\Pr(A \mid B) = \Pr(A) \quad \text{and} \quad \Pr(B \mid A) = \Pr(B)
+\]
+
+Equivalently,
+\[
+\Pr(A, B) = \Pr(A)\Pr(B)
+\]
+
+\subsubsection{Definition (Three Events – Mutual Independence)}
+Three events $A, B, C$ are mutually independent if:
+\begin{align*}
+\Pr(A, B) &= \Pr(A)\Pr(B) \\
+\Pr(A, C) &= \Pr(A)\Pr(C) \\
+\Pr(B, C) &= \Pr(B)\Pr(C) \\
+\Pr(A, B, C) &= \Pr(A)\Pr(B)\Pr(C)
+\end{align*}
+
+\subsection{Probability Mass Function (PMF)}
+Let $X$ be a discrete random variable with range finite or countably infinite 
+\[
+R_X = \{x_1, x_2, x_3, \dots\}
+\]
+
+
+\item The Probability Mass Function (PMF) of $X$ is defined as:
+\[
+P_X(x_k) = \Pr(X = x_k), \quad k = 1,2,3,\dots
+\]
+
+\item Since $X$ must take one of its possible values:
+\[
+\sum_{k=1}^{\infty} P_X(x_k) = 1
+\]
+
+\section{Derivations and Proofs}
+
+\subsection{PMF Normalization Condition}
+\item Given a discrete random variable $X$:
+\[
+\sum_{k=1}^{\infty} P_X(x_k) = 1
+\]
+
+\item This follows directly from the fact that the events $\{X = x_k\}$ form a partition of the sample space.
+
+\subsection{PMF with Parameter $\lambda$}
+\item Given:
+\[
+p(i) = c \frac{\lambda^i}{i!}, \quad i = 0,1,2,\dots
+\]
+
+\item Using normalization:
+\[
+\sum_{i=0}^{\infty} p(i) = 1 \Rightarrow c \sum_{i=0}^{\infty} \frac{\lambda^i}{i!} = 1
+\]
+
+\item Since:
+\[
+e^{\lambda} = \sum_{i=0}^{\infty} \frac{\lambda^i}{i!}
+\]
+
+\item We obtain:
+\[
+c e^{\lambda} = 1 \Rightarrow c = e^{-\lambda}
+\]
+
+\section{Worked Examples}
+
+\subsection{Example 1: Independent Events – Auditorium}
+Let:
+\begin{itemize}
+    \item Event $A$: Row 20 is selected
+    \item Event $B$: Seat 15 is selected
+\end{itemize}
+
+\item Assume each row has an equal number of seats.
+
+\item \textbf{Question:} Can event $B$ give any new information about the likelihood of event $A$?
+
+\item \textbf{Answer:} No. Hence, $A$ and $B$ are independent.
+
+\subsection{Example 2: Communication Network}
+\item A communication network has nodes $A, B, C, D$ and links $a_1, a_2, a_3, a_4$. Each link is available with probability $p$, independently.
+
+\item A message can be sent from $A$ to $D$ if there exists a path of available links.
+
+\item The probability is computed by evaluating unions and intersections of independent path events using:
+\[
+\Pr(A \cup B) = \Pr(A) + \Pr(B) - \Pr(A \cap B)
+\]
+
+\subsection{Example 3: Modified Communication Network}
+\item An additional link from $B$ to $D$ is added. Each link is independently available with probability $p$.
+
+\item The probability of being able to send a message from $A$ to $D$ is recomputed using independence assumptions and unions of multiple paths.
+
+\subsection{Example 4: True or False (Independence)}
+Suppose events $A$ and $B$ are independent.
+
+\begin{enumerate}[label=(\alph*)]
+    \item Is $A$ independent of $\bar{B}$?
+    \item Is $\bar{A}$ independent of $B$?
+\end{enumerate}
+
+Each part requires either:
+\begin{itemize}
+    \item A proof using the definition of independence, or
+    \item A counter example.
+\end{itemize}
+
+\section{Random Variable Examples}
+
+\subsection{Tossing 3 Fair Coins}
+Let $Y$ be the number of heads.
+
+\item \textbf{Possible values:} $\{0,1,2,3\}$
+
+\begin{align*}
+\Pr(Y=0) &= \frac{1}{8} \\
+\Pr(Y=1) &= \frac{3}{8} \\
+\Pr(Y=2) &= \frac{3}{8} \\
+\Pr(Y=3) &= \frac{1}{8}
+\end{align*}
+
+Check:
+\[
+\sum_{i=0}^{3} \Pr(Y=i) = 1
+\]
+
+\section{Standard Discrete Random Variables}
+
+\subsection{Bernoulli Random Variable}
+\textbf{Experiment:} Outcome is either Success or Failure.
+
+\item Define:
+\[
+X =
+\begin{cases}
+1, & \text{if Success} \\
+0, & \text{if Failure}
+\end{cases}
+\]
+
+\textbf{PMF:}
+\[
+\Pr(X=1) = p, \quad \Pr(X=0) = 1-p, \quad p \in (0,1)
+\]
+
+\textbf{Applications:}
+\begin{itemize}
+    \item Single coin toss
+    \item Randomly chosen person being Indian with probability $p$
+    \item Email being spam with probability $p$
+\end{itemize}
+
+\subsection{Binomial Random Variable}
+\textbf{Experiment:}
+\begin{itemize}
+    \item $n$ independent trials
+    \item Each trial results in success with probability $p$
+\end{itemize}
+
+Define:
+\[
+X = \text{number of successes in } n \text{ trials}
+\]
+
+Notation:
+\[
+X \sim B(n,p)
+\]
+
+\textbf{PMF:}
+\[
+p(i) = \binom{n}{i} p^i (1-p)^{n-i}, \quad i = 0,1,\dots,n
+\]
+
+\textbf{Applications:}
+\begin{itemize}
+    \item Number of correct answers in a multiple-choice test
+    \item Number of defective items in a sample of size $n$
+\end{itemize}
+
+\subsection{Geometric Random Variable}
+\textbf{Experiment:}
+\begin{itemize}
+    \item Independent trials
+    \item Success probability $p$
+    \item Trials continue until the first success
+\end{itemize}
+
+Define:
+\[
+X = \text{number of trials required for success}
+\]
+
+\item This random variable is known as a Geometric Random Variable.
+
+\item (The PMF is introduced but derived in a later lecture.)
+
+\section{Bayes’ Theorem (Recap)}
+
+Using:
+\[
+\Pr(A,B) = \Pr(B \mid A)\Pr(A)
+\]
+
+\subsection{Bayes’ Formula}
+\[
+\Pr(B_i \mid A) =
+\frac{\Pr(A \mid B_i)\Pr(B_i)}
+{\sum_j \Pr(A \mid B_j)\Pr(B_j)}
+\]
+
+\begin{itemize}
+    \item $\Pr(B_i)$: Prior probability
+    \item $\Pr(B_i \mid A)$: Posterior probability
+\end{itemize}
+
+\subsection{Bayes’ Example 1: Auditorium}
+An auditorium has 30 rows.
+\begin{itemize}
+    \item Row 1 has 11 seats
+    \item Row 30 has 40 seats
+\end{itemize}
+
+A row is selected uniformly. A seat is selected uniformly within the chosen row.
+
+Compute:
+\[
+\Pr(\text{Seat 15} \mid \text{Row 20})
+\]
+\[
+\Pr(\text{Row 20} \mid \text{Seat 15})
+\]
+
+Bayes’ theorem is applied step-by-step using total probability.
+
+\subsection{Bayes’ Example 2: Communication System}
+Binary data (0 or 1) is transmitted.
+
+\item The receiver:
+\begin{itemize}
+    \item Sometimes detects 0 as 1
+    \item Sometimes detects 1 as 0
+\end{itemize}
+
+\item Given conditional probabilities of detection errors, Bayes’ theorem is used to compute posterior probabilities of transmitted symbols.
+
+\section{Summary}
+\begin{itemize}
+    \item Random variables map outcomes to numerical values
+    \item Discrete random variables are described using PMFs
+    \item Independence requires product-form joint probabilities
+    \item Bernoulli, Binomial, and Geometric RVs model common experiments
+    \item PMFs must sum to 1
+    \item Bayes’ Theorem allows updating probabilities based on observed evidence
+\end{itemize}
+
+All examples illustrate structured probabilistic reasoning for computation-focused problems.
+
+\end{document}
+
+
+\end{document}
