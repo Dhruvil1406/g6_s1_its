@@ -1,0 +1,6 @@
+Here is the prompt that i have used to generate the scribe:
+
+Hi, i want you to generate the scribe of a lecture pdf. Using the file “L6_S1_A”, create a scribe in LaTeX format that I can use as a reference for my exams. The content should be clear, precise, accurate and the final pdf should be 2-3 pages long not more that that.
+Do not change the original content in any way. Do not add information from reference files or include any additional material of your own. The goal is only to present the given content in a proper scribe format.
+Make sure the output can be directly compiled in LaTeX. For now, provide only the LaTeX code.
+If there is any difficulty in providing the PDF, please also include the content in the chat along with the PDF.
