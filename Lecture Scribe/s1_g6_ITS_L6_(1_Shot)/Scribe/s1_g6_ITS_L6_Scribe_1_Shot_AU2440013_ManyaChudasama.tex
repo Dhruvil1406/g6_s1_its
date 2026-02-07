@@ -1,0 +1,167 @@
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{booktabs}
+\usepackage{hyperref}
+
+% --- Custom Header Information ---
+\title{
+    \Large \textbf{School of Engineering and Applied Science} \\
+    \vspace{0.5cm}
+    \large Lecture Scribe: L6 \\
+    \vspace{0.2cm}
+    \normalsize \textbf{Name:} Manya Chudasama \\
+    \vspace{0.2cm}
+    \normalsize \textbf{Enrollment No:} AU2440013
+}
+\date{} % Removed Exam Reference Material
+\begin{document}
+
+\maketitle
+
+\section*{1) List of Topics Covered}
+\begin{enumerate}
+    \item \textbf{Random Variables (RVs)}
+    \begin{itemize}
+        \item Motivation and Concept
+        \item Discrete vs. Continuous RVs
+        \item Probability Mass Function (PMF)
+    \end{itemize}
+    \item \textbf{Probability Distributions}
+    \begin{itemize}
+        \item Bernoulli Random Variable
+        \item Binomial Random Variable
+        \item Geometric Random Variable
+        \item Poisson Random Variable
+    \end{itemize}
+    \item \textbf{Bayes' Theorem}
+    \begin{itemize}
+        \item Definition and Formula
+        \item A Priori vs. Posteriori Probabilities
+    \end{itemize}
+    \item \textbf{Independent Events}
+    \begin{itemize}
+        \item Definition for two and three events
+    \end{itemize}
+    \item \textbf{Expectation and Moments}
+    \begin{itemize}
+        \item Expectation of RVs ($\mu = E[X]$)
+        \item Expectation of a Function of RV
+        \item Variance, Skewness, and Kurtosis
+    \end{itemize}
+    \item \textbf{Distribution Functions}
+    \begin{itemize}
+        \item Cumulative Density Function (CDF)
+        \item Probability Density Function (PDF)
+    \end{itemize}
+\end{enumerate}
+
+\vspace{0.5cm}
+
+\section*{2) Explanation of Topics Covered}
+
+\begin{itemize}
+    \item \textbf{Random Variables (RVs)} \\
+    A random variable $X$ is a function that assigns a real number to each sample point in a sample space $\Omega$. Discrete random variables take values in a finite or countably infinite range. Their distribution can be visualized as a bar diagram where the x-axis represents the values and the height of the bar represents the probability $Pr[X=a]$.
+
+    
+
+[Image of discrete probability mass function graph]
+
+
+    \item \textbf{Discrete vs. Continuous Variables} \\
+    Discrete variables have "countable support" and use a Probability Mass Function (PMF) where probabilities are assigned to single values. Continuous variables have "uncountable support" and use a Probability Density Function (PDF) where probabilities are assigned to intervals, and any single value has zero probability.
+    
+    \item \textbf{Probability Mass Function (PMF)} \\
+    The PMF, denoted $P_X(x_k) = P(X = x_k)$, gives the probability of each outcome for a discrete RV. A fundamental property is that the sum of all probabilities in the PMF must equal 1: $\sum_{k=1}^{\infty} P_X(x_k) = 1$.
+    
+    \item \textbf{Independent Events} \\
+    Two events $A$ and $B$ are independent if the occurrence of one does not change the likelihood of the other, mathematically $Pr(A|B) = Pr(A)$ and $Pr(B|A) = Pr(B)$. This implies their joint probability is the product of their individual probabilities: $Pr(A, B) = Pr(A)Pr(B)$.
+\end{itemize}
+
+\vspace{0.5cm}
+
+\section*{3) List of Definitions and Theorems}
+
+\paragraph{Definition 1: Random Variable}
+A random variable $X$ on a sample space $\Omega$ is a function $X: \Omega \rightarrow \mathbb{R}$ that assigns to each sample point $\omega \in \Omega$ a real number $X(\omega)$.
+
+\paragraph{Definition 2: Bernoulli Random Variable}
+A random variable $X$ is a Bernoulli RV if it represents an experiment with only two outcomes: Success (1) or Failure (0).
+\begin{itemize}
+    \item \textbf{Notation:} $X \in \{0, 1\}$.
+    \item \textbf{PMF:} 
+    \begin{itemize}
+        \item $P_X(1) = p$ (probability of success)
+        \item $P_X(0) = 1 - p$ (probability of failure)
+    \end{itemize}
+\end{itemize}
+
+\paragraph{Definition 3: Binomial Random Variable}
+Denoted $B(n, p)$, it represents the number of successes $X$ in $n$ independent trials, where each trial has a success probability $p$.
+\begin{itemize}
+    \item \textbf{PMF Statement:} $p(i) = \binom{n}{i} p^i (1-p)^{n-i}$ for $i = 0, 1, \dots, n$.
+\end{itemize}
+
+\paragraph{Theorem: Bayes' Formula}
+Given events $B_1, B_2, \dots, B_n$ that partition the sample space, the probability of $B_i$ given event $A$ is:
+\[ Pr(B_i|A) = \frac{Pr(A|B_i)Pr(B_i)}{\sum_{j=1}^n Pr(A|B_j)Pr(B_j)} \]
+\begin{itemize}
+    \item \textbf{Proof/Recap:} Using the definition of conditional probability, $Pr(A \cap B_i) = Pr(B_i|A)Pr(A)$. Substituting the law of total probability for $Pr(A)$ into the denominator yields the formula.
+\end{itemize}
+
+\vspace{0.5cm}
+
+\section*{4) Important Examples}
+
+\paragraph{Example 1: Tossing 3 Fair Coins}
+Suppose an experiment consists of tossing 3 fair coins. Let $Y$ denote the number of heads.
+\begin{itemize}
+    \item \textbf{Step 1:} Identify the possible values for $Y$: $\{0, 1, 2, 3\}$.
+    \item \textbf{Step 2:} Calculate individual probabilities:
+    \begin{itemize}
+        \item $P(Y=0) = P\{(t,t,t)\} = 1/8$
+        \item $P(Y=1) = P\{(t,t,h), (t,h,t), (h,t,t)\} = 3/8$
+        \item $P(Y=2) = P\{(t,h,h), (h,t,h), (h,h,t)\} = 3/8$
+        \item $P(Y=3) = P\{(h,h,h)\} = 1/8$
+    \end{itemize}
+    \item \textbf{Step 3:} Verify the sum: $\sum P(Y=i) = 1/8 + 3/8 + 3/8 + 1/8 = 1$.
+\end{itemize}
+
+\paragraph{Example 2: PMF with Constant $C$}
+The PMF of a random variable $X$ is $p(i) = C \lambda^i / i!$ for $i=0, 1, 2, \dots$ and $\lambda > 0$. Find $C$.
+\begin{itemize}
+    \item \textbf{Step 1:} Use the property $\sum p(i) = 1$.
+    \item \textbf{Step 2:} $\sum_{i=0}^{\infty} C \frac{\lambda^i}{i!} = C \sum_{i=0}^{\infty} \frac{\lambda^i}{i!} = C e^\lambda$.
+    \item \textbf{Step 3:} Set $C e^\lambda = 1$, which gives $C = e^{-\lambda}$.
+\end{itemize}
+
+\paragraph{Example 3: Urn with Replacement (Geometric RV)}
+An urn contains $N$ white and $M$ black balls. Balls are drawn with replacement until a black one is obtained.
+\begin{itemize}
+    \item \textbf{Step 1:} Define $X$ as the number of draws needed. $X$ follows a Geometric distribution with success probability $p = M/(M+N)$.
+    \item \textbf{Step 2:} The probability that exactly $n$ draws are needed is:
+    \[ P(X=n) = (1-p)^{n-1}p \]
+    \[ P(X=n) = \left(\frac{N}{M+N}\right)^{n-1} \left(\frac{M}{M+N}\right) = \frac{M N^{n-1}}{(M+N)^n} \]
+\end{itemize}
+
+\vspace{0.5cm}
+\newpage
+\section*{5) List of Important Formulas}
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{lll}
+\textbf{Distribution / Concept} & \textbf{Formula} & \textbf{Parameters / Notes} \\ 
+\textbf{Sum of PMF} & $\sum P_X(x_k) = 1$ & Discrete RVs \\
+\textbf{Bernoulli PMF} & $P(X=1)=p; P(X=0)=1-p$ & $p \in (0,1)$ \\
+\textbf{Binomial PMF} & $p(i) = \binom{n}{i} p^i (1-p)^{n-i}$ & $n$ trials, $p$ success \\
+\textbf{Geometric PMF} & $P(X=n) = (1-p)^{n-1}p$ & First success on trial $n$ \\
+\textbf{Poisson PMF} & $p(i) = \frac{e^{-\lambda} \lambda^i}{i!}$ & $\lambda > 0, i=0, 1, 2, \dots$ \\
+\textbf{Bayes' Theorem} & $Pr(B_i|A) = \frac{Pr(A|B_i)Pr(B_i)}{Pr(A)}$ & Posteriori probability \\
+\textbf{Independence} & $Pr(A, B) = Pr(A)Pr(B)$ & Joint probability \\ 
+\end{tabular}
+\end{table}
+
+\end{document}
