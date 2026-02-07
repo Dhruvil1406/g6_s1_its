@@ -1,0 +1,7 @@
+Generate a Lecture Scribe as chat from the given PPT "L6_S1_A" using the structure from the PDF "Example_Scribe". Lecture scribe is to be created for entire ppt of all given pages. 
+
+Follow the below two sets of instructions properly to generate the Lecture Scribe : 
+
+Instructions : 1) The lecture scribe is to be strictly generated as per the structure given in Example_Scribe 2) Use the content from PPT L6_S1_A only and DO NOT generate or add new content 3) The lecture scribe should be created as exam reference material 4) The lecture scribe must include proofs, derivations, and worked examples exactly as presented in ppt
+
+Instructions for following the example scribe : 1) For List of topics covered, the lecture scribe must cover the list of all topics covered in the PPT 2) For Explanation of Topics Covered, the lecture scribe must cover detailed explanation of topics covered in lecture (pointwise) 3) For List of Definitions and Theorems, the lecture scribe must include Definitions with notations,associated with definitions/assumption and exact statement of definitions and theorems along with proof of theorem step by step 4) For Important Examples, select examples from the PPT attached (L6_S1_A) in such a way that it covers all the concepts discussed. *Write step by step solution to examples*. INCLUDE EXAMPLES FROM PPT ONLY, DO NOT GENERATE BY YOURSELF 5) For the List of Important Formulas, write the list of all the important formulas from the PPT only and it should be in tabular format
