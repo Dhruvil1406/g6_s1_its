@@ -1,0 +1,231 @@
+\documentclass[11pt]{article}
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{geometry}
+\geometry{margin=1in}
+
+\title{CSE 400: Fundamentals of Probability in Computing\\
+Lecture 10: Randomized Min-Cut Algorithm\\
+Group-6 Scribe Refactoring}
+
+\date{February 5, 2026}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+
+This lecture studies the \textbf{Minimum Cut (Min-Cut)} problem in graphs,
+including deterministic and randomized approaches.
+
+Applications include:
+\begin{itemize}
+    \item Network design and optimization
+    \item Communication network reliability
+    \item VLSI circuit partitioning
+\end{itemize}
+
+\section{Min-Cut Problem}
+
+\subsection{Definition of a Cut}
+
+Given a graph $G = (V,E)$:
+
+A \textbf{cut-set} is a set of edges whose removal disconnects the graph into two or more components.
+
+\subsection{Minimum Cut}
+
+The \textbf{minimum cut} of $G$ is a cut-set of minimum cardinality.
+
+Formally:
+
+\[
+\text{Min-Cut}(G) = \min_{S \subset V} |E(S, V \setminus S)|
+\]
+
+where $E(S, V \setminus S)$ is the set of edges crossing the partition.
+
+\section{Edge Contraction}
+
+The core operation in many min-cut algorithms is \textbf{edge contraction}.
+
+When contracting edge $(u,v)$:
+
+\begin{itemize}
+    \item Merge vertices $u$ and $v$
+    \item Remove self-loops
+    \item Retain parallel edges
+\end{itemize}
+
+After repeated contractions, the graph reduces in size.
+
+\section{Max-Flow Min-Cut Theorem}
+
+\textbf{Theorem:}  
+In a flow network, the maximum flow from source $S$ to sink $T$
+is equal to the capacity of the minimum cut.
+
+\subsection{Definitions}
+
+\begin{itemize}
+    \item Capacity of cut: Sum of capacities of edges from $X$ to $Y$
+    \item Minimum cut capacity: Smallest such capacity
+    \item Maximum flow: Largest feasible flow from $S$ to $T$
+\end{itemize}
+
+\section{Deterministic Min-Cut Algorithm}
+
+\subsection{Stoer-Wagner Algorithm}
+
+Let $s,t$ be vertices in $G$.
+
+A minimum cut of $G$ is the smaller of:
+
+\begin{itemize}
+    \item Minimum $s$-$t$ cut of $G$
+    \item Minimum cut of $G/\{s,t\}$
+\end{itemize}
+
+\subsection{Pseudocode}
+
+\textbf{Algorithm 1: MinimumCutPhase(G, a)}
+
+\begin{verbatim}
+A ← {a}
+while A ≠ V do
+    add most tightly connected vertex to A
+return cut weight
+\end{verbatim}
+
+\textbf{Algorithm 2: MinimumCut(G)}
+
+\begin{verbatim}
+while |V| ≥ 1 do
+    choose a ∈ V
+    MinimumCutPhase(G, a)
+    update minimum cut if needed
+    merge last two added vertices
+return minimum cut
+\end{verbatim}
+
+\subsection{Time Complexity}
+
+Stoer-Wagner runs in:
+
+\[
+O(VE + V^2 \log V)
+\]
+
+\section{Randomized Min-Cut Algorithm}
+
+\subsection{Why Randomization?}
+
+\begin{itemize}
+    \item Avoid worst-case inputs
+    \item Faster in practice
+    \item Easier parallelization
+    \item Approximation guarantees
+\end{itemize}
+
+\section{Karger's Randomized Algorithm}
+
+\subsection{Algorithm Idea}
+
+\begin{enumerate}
+    \item While $|V| > 2$:
+    \begin{itemize}
+        \item Choose random edge
+        \item Contract it
+    \end{itemize}
+    \item Return remaining cut
+\end{enumerate}
+
+\subsection{Time Complexity}
+
+\[
+O(V^2)
+\]
+
+\section{Probability of Success}
+
+\textbf{Theorem:}
+
+Karger's algorithm outputs a minimum cut with probability at least
+
+\[
+\frac{2}{n(n-1)}
+\]
+
+\subsection{Proof Sketch}
+
+Let the minimum cut size be $k$.
+
+At each contraction step:
+
+\[
+P(\text{avoid min-cut edge}) \ge 1 - \frac{k}{\text{total edges}}
+\]
+
+After $n-2$ contractions:
+
+\[
+P(\text{success}) \ge \prod_{i=0}^{n-3}
+\left(1 - \frac{2}{n-i}\right)
+= \frac{2}{n(n-1)}
+\]
+
+Thus repeating algorithm multiple times increases success probability.
+
+\section{Comparison}
+
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline
+Property & Deterministic & Randomized \\
+\hline
+Guarantee & Exact & High Probability \\
+Time Complexity & $O(VE + V^2 \log V)$ & $O(V^2)$ \\
+Worst Case & Predictable & Probabilistic \\
+Parallelization & Limited & Easy \\
+\hline
+\end{tabular}
+\end{center}
+
+\section{Python Simulation}
+
+A simulation notebook was provided for experimentation with Karger’s algorithm.
+
+Students are encouraged to:
+\begin{itemize}
+    \item Run multiple trials
+    \item Observe probability convergence
+    \item Compare deterministic vs randomized performance
+\end{itemize}
+
+\section{Exam-Oriented Summary}
+
+\begin{itemize}
+    \item Understand definition of cut and minimum cut.
+    \item Know edge contraction clearly.
+    \item Be able to state Max-Flow Min-Cut theorem.
+    \item Write Stoer-Wagner pseudocode.
+    \item Write Karger’s algorithm.
+    \item Derive probability $\frac{2}{n(n-1)}$.
+    \item Compare deterministic vs randomized approaches.
+    \item Know time complexities.
+\end{itemize}
+
+\section{Key Takeaways}
+
+\begin{itemize}
+    \item Min-cut measures graph connectivity.
+    \item Deterministic algorithms guarantee exact solutions.
+    \item Randomized algorithms trade certainty for efficiency.
+    \item Repetition improves randomized success probability.
+\end{itemize}
+
+\end{document}
