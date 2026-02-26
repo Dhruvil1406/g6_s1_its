@@ -1,0 +1,5 @@
+Prompt : 
+Generate a Lecture Scribe as chat from the given Tutorial "Tutorial_2" using the structure from the PDF "Example_Scribe".
+Follow the below two sets of instructions properly to generate the Lecture Scribe : 
+Instructions : 1) The lecture scribe is to be generated as per the structure given in Example_Scribe 2) Use the content from Tutorial_2 only and DO NOT generate or add new content 3) The lecture scribe should be created as exam reference material 
+Instructions for following the example scribe : 1) For List of topics covered, you need to analyse the tutorial properly 2) For Explanation of Topics Covered, explain using the questions given in tutorial only 3) For List of Definitions and Theorems, use content of tutorial only but explain in detailed way 4) For Important Examples, select important questions from the tutorial_2 attached in such a way that it covers all the concepts discussed. *Write step by step solution to questions*. INCLUDE EXAMPLES FROM Tutorial ONLY, DO NOT GENERATE BY YOURSELF 5) For the List of Important Formulas, write the list of all the important formulas used in the Tutorial Questions
