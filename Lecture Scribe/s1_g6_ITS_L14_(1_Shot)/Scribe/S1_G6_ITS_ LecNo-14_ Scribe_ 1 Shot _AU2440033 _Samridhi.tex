@@ -1,0 +1,338 @@
+\documentclass[12pt]{article}
+\usepackage{graphicx} % Required for inserting images
+
+
+% ===================== PACKAGES =====================
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{xcolor} 
+
+% ===================== HEADER & FOOTER =====================
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{CSE 400: Fundamentals of Probability in Computing}
+\rhead{Lecture - 10 scribe }
+\cfoot{\thepage}
+
+% ===================== CUSTOM COMMANDS =====================
+\newcommand{\solution}{
+    \vspace{0.5cm}
+    \noindent\textbf{\textcolor{blue}{Solution:}}
+    \vspace{0.2cm}
+    
+    % --- STUDENT: TYPE YOUR SOLUTION BELOW THIS LINE ---
+    
+    \vfill 
+}
+
+
+% ===================== TITLE =====================
+\title{
+    \normalsize School of Engineering and Applied Science (SEAS), Ahmedabad University \\
+    \vspace{0.2cm}
+    \textbf{CSE 400: Fundamentals of Probability in Computing}\\
+    \Large {Tutorial-2: Solutions}
+}
+\author{} 
+\date{}
+
+\begin{document}
+\maketitle
+
+\vspace{-2cm}
+\begin{center}
+    \begin{tabular}{ll}
+        \textbf{Name:} & {Samridhi Mehrotra \hspace{2.5in}} \\ [1.5ex]
+        \textbf{Enrollment No:} & {AU2440033 \hspace{2.5in}} \\ [1.5ex]
+        \textbf{Email:} & {samridhi.m@ahduni.edu.in \hspace{2.1in}} \\ [1.5ex]
+        
+    \end{tabular}
+\end{center}
+
+\hrule
+\vspace{0.5cm}
+
+
+
+\title{\textbf{Tutorial-2: Solutions }
+\author{}
+\date{}
+
+\title{ Tutorial-2: Solutions}
+\date{}
+\begin{document}
+
+\maketitle
+
+\section*{Overview}
+This lecture covers ten problems involving uniform distributions, normal distributions with Bayesian inference, minimization of expected absolute deviation, mixtures of exponential distributions, conditional distributions of Poisson variables, transformations of random variables, binomial approximation in stock modeling, exponential distribution properties, distribution of radial transformations, and joint distribution of order statistics.
+
+\section*{Definitions and Notation}
+
+\textbf{Uniform distribution on $(0,L)$:}
+\[
+f_X(x) = \frac{1}{L}, \quad 0 \le x \le L
+\]
+
+\textbf{Normal distribution:}
+\[
+f(x) = \frac{1}{\sigma \sqrt{2\pi}} e^{-\frac{(x-\mu)^2}{2\sigma^2}}
+\]
+
+\textbf{Exponential distribution (rate $\lambda$):}
+\[
+f(x) = \lambda e^{-\lambda x}, \quad x \ge 0
+\]
+
+\textbf{Poisson distribution:}
+\[
+P(X=k) = e^{-\lambda} \frac{\lambda^k}{k!}
+\]
+
+\textbf{Binomial distribution:}
+\[
+P(X=k) = \binom{n}{k} p^k (1-p)^{n-k}
+\]
+
+\textbf{Conditional probability:}
+\[
+P(A|B) = \frac{P(A \cap B)}{P(B)}
+\]
+
+\textbf{Maximum of i.i.d. variables:}
+\[
+M_n = \max(X_1, X_2, \dots, X_n)
+\]
+
+\section*{Main Results}
+
+\subsection*{Q1. Uniform Point on a Line Segment}
+
+Let $x$ be the distance from one end, $0 < x < L$.
+
+\[
+R = \frac{\min(x, L-x)}{\max(x, L-x)}
+\]
+
+Case 1: $x \le \frac{L}{2}$
+\[
+\frac{x}{L-x} < \frac{1}{4}
+\]
+\[
+4x < L-x
+\]
+\[
+5x < L
+\]
+\[
+x < \frac{L}{5}
+\]
+
+Case 2: $x > \frac{L}{2}$
+\[
+\frac{L-x}{x} < \frac{1}{4}
+\]
+\[
+4L - 4x < x
+\]
+\[
+5x > 4L
+\]
+\[
+x > \frac{4L}{5}
+\]
+
+Valid region:
+\[
+(0, L/5) \cup (4L/5, L)
+\]
+
+Length:
+\[
+\frac{2L}{5}
+\]
+
+Probability:
+\[
+\frac{2L/5}{L} = \frac{2}{5}
+\]
+
+\subsection*{Q2. Normal Classification Error}
+
+Given:
+\[
+X|W \sim N(4,4), \quad \sigma_1 = 2
+\]
+\[
+X|B \sim N(6,9), \quad \sigma_2 = 3
+\]
+\[
+P(B)=\alpha, \quad P(W)=1-\alpha
+\]
+
+Require:
+\[
+P(B|X=5) = \frac{1}{2}
+\]
+
+Using Bayes' theorem:
+\[
+\frac{\alpha f(5|B)}{\alpha f(5|B) + (1-\alpha)f(5|W)} = \frac{1}{2}
+\]
+
+After simplification:
+\[
+\alpha \approx 0.3827
+\]
+
+\subsection*{Q3. Minimizing Expected Distance}
+
+\textbf{(a) $X \sim \text{Uniform}(0,A)$}
+
+\[
+E[|X-a|] = \int_0^a (a-x)\frac{1}{A}dx + \int_a^A (x-a)\frac{1}{A}dx
+\]
+
+Derivative:
+\[
+\frac{d}{da} = \frac{1}{2A}(4a - 2A) = 0
+\]
+
+\[
+a = \frac{A}{2}
+\]
+
+\textbf{(b) $X \sim \text{Exponential}(\lambda)$}
+
+\[
+\frac{d}{da}E[|X-a|] = 1 - 2e^{-\lambda a} = 0
+\]
+
+\[
+e^{-\lambda a} = \frac{1}{2}
+\]
+
+\[
+a = \frac{\ln 2}{\lambda}
+\]
+
+\subsection*{Q4. Mixture of Exponentials}
+
+\[
+P(X>t) = p_1 e^{-\lambda_1 t} + p_2 e^{-\lambda_2 t}
+\]
+
+\[
+P(X>t+s | X>t) =
+\frac{p_1 e^{-\lambda_1(t+s)} + p_2 e^{-\lambda_2(t+s)}}
+{p_1 e^{-\lambda_1 t} + p_2 e^{-\lambda_2 t}}
+\]
+
+\subsection*{Q5. Conditional Poisson}
+
+\[
+P(X=k | X+Y=n) =
+\binom{n}{k}
+\left( \frac{\lambda_1}{\lambda_1+\lambda_2} \right)^k
+\left( \frac{\lambda_2}{\lambda_1+\lambda_2} \right)^{n-k}
+\]
+
+\subsection*{Q6. Transformation $Y=g(X)$, $X\sim U[-2,2]$}
+
+PDF:
+\[
+f_Y(y)=\frac{1}{4}, \quad -2<y<-1
+\]
+\[
+f_Y(y)=\frac{1}{4}, \quad 1<y<2
+\]
+
+Point mass:
+\[
+P(Y=0)=\frac{1}{2}
+\]
+
+\subsection*{Q7. Stock Model}
+
+\[
+S_{1000} = S_0 u^k d^{1000-k}
+\]
+
+\[
+k \ge \frac{\ln(1.30) - 1000\ln d}{\ln u - \ln d}
+\]
+
+\[
+k \ge 470
+\]
+
+\[
+k \sim \text{Binomial}(1000,0.52)
+\]
+
+\[
+P(k \ge 470) = \sum_{k=470}^{1000}
+\binom{1000}{k} (0.52)^k (0.48)^{1000-k}
+\]
+
+\subsection*{Q8. Exponential ($\lambda=\frac{1}{2}$)}
+
+PDF:
+\[
+f(x)=\frac{1}{2}e^{-x/2}
+\]
+
+\[
+P(X>2)=e^{-1}
+\]
+
+\[
+P(X\ge10|X>9)=e^{-1/2}
+\]
+
+\subsection*{Q9. $Z=\sqrt{X^2+Y^2}$}
+
+\[
+F_Z(z)=P(X^2+Y^2 \le z^2)
+\]
+
+\[
+f_Z(z)= z \int_{-z}^{z}
+f_X(x)
+\frac{f_Y(\sqrt{z^2-x^2}) + f_Y(-\sqrt{z^2-x^2})}
+{\sqrt{z^2-x^2}}
+\, dx
+\]
+
+\subsection*{Q10. Joint Distribution of $M_n$ and $M_{n+1}$}
+
+\[
+P(M_n \le x) = F(x)^n
+\]
+
+\[
+P(M_n \le x, M_{n+1} \le y)=
+\begin{cases}
+F(x)^n F(y), & x \le y \\
+F(y)^{n+1}, & x > y
+\end{cases}
+\]
+
+\section*{Summary}
+
+\begin{itemize}
+\item Uniform probability: $\frac{2}{5}$
+\item Normal Bayesian solution: $\alpha \approx 0.3827$
+\item Median minimizes expected absolute deviation
+\item Exponential minimizer: $\frac{\ln 2}{\lambda}$
+\item Poisson conditional $\rightarrow$ Binomial
+\item Transformation with point mass
+\item Binomial tail probability
+\item Exponential memoryless property
+\item Radial PDF via differentiation
+\item Joint CDF of maxima (piecewise)
+\end{itemize}
+
+\end{document}
