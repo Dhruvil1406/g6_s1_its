@@ -1,0 +1,168 @@
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{booktabs}
+\usepackage{hyperref}
+
+% --- Custom Header Information ---
+\title{
+    \Large \textbf{School of Engineering and Applied Science} \\
+    \vspace{0.5cm}
+    \large \textbf{Lecture Scribe}: Lecture 14 (Tutorial 2) \\
+    \vspace{0.2cm}
+    \normalsize \textbf{Name:} Manya Chudasama\\
+    \vspace{0.2cm}
+    \normalsize \textbf{Enrollment No:} AU2440013
+}
+\date{} 
+
+\begin{document}
+
+\maketitle
+
+\section*{1) List of Topics Covered}
+\begin{enumerate}
+    \item \textbf{Continuous Uniform Distribution}
+    \begin{itemize}
+        \item Analysis of points chosen on line segments and roads.
+    \end{itemize}
+    \item \textbf{Bayes' Theorem and Normal Distribution}
+    \begin{itemize}
+        \item Calculating posterior probabilities and minimizing error in region classification.
+    \end{itemize}
+    \item \textbf{Exponential Distribution}
+    \begin{itemize}
+        \item Modeling repair times, fire station placement, and battery lifetimes.
+    \end{itemize}
+    \item \textbf{Law of Total Probability and Conditional Probability}
+    \begin{itemize}
+        \item Determining probabilities for sequential events and multi-type components.
+    \end{itemize}
+    \item \textbf{Poisson Distribution and Binomial Structure}
+    \begin{itemize}
+        \item Finding conditional probabilities of independent counts.
+    \end{itemize}
+    \item \textbf{Transformation of Random Variables}
+    \begin{itemize}
+        \item Deriving Cumulative Distribution Functions (CDF) and Probability Density Functions (PDF) for piecewise and non-linear functions.
+    \end{itemize}
+    \item \textbf{Independent Trials and Binomial Distribution}
+    \begin{itemize}
+        \item Approximating stock price movements over multiple periods.
+    \end{itemize}
+    \item \textbf{Joint Distributions and Order Statistics}
+    \begin{itemize}
+        \item Analyzing the relationship between successive maximums of i.i.d. variables.
+    \end{itemize}
+\end{enumerate}
+
+\vspace{0.5cm}
+
+\section*{2) Explanation of Topics Covered}
+
+\begin{itemize}
+    \item \textbf{Uniform and Exponential Spatial Distributions} \\
+    The tutorial explores how to model events occurring "at random" over a defined space. For a road of length $A$, a fire station is placed to minimize the expected distance $\mathbb{E}[|X-a|]$. In a uniform setting, the optimal location is the midpoint, whereas, for an exponentially distributed fire distance, the location is determined by the rate $\lambda$.
+
+    \item \textbf{Bayesian Classification and Normal Density} \\
+    Classification problems are addressed by comparing posterior probabilities. In the case of an image with black and white regions, we use the Normal density formula to determine the likelihood of a specific reading given the region. The goal is to find an image fraction $\alpha$ where the probability of error is identical for both region conclusions.
+
+    \item \textbf{Reliability and Memoryless Properties} \\
+    The tutorial examines lifetimes of components using the exponential distribution. It specifically looks at conditional survival: the probability a battery operates for an additional $s$ hours given it has already lasted $t$ hours.
+
+    \item \textbf{Transformation and Joint CDFs} \\
+    When a random variable $Y$ is a function of $X$ ($Y=g(X)$), the distribution of $Y$ is found piecewise. This includes identifying "point masses" where a range of $X$ values maps to a single $Y$ value. For joint distributions, such as $M_n$ and $M_{n+1}$, the tutorial demonstrates how to define the CDF based on whether the evaluation point $x$ is less than or greater than $y$.
+\end{itemize}
+
+\vspace{0.5cm}
+
+\section*{3) List of Definitions and Theorems} 
+
+\paragraph{1) Bayes' Theorem (Posterior Probability)} \leavevmode \\
+Used to update the probability of a hypothesis (region type) given observed evidence (a reading $X=5$):
+\[ P(B|X=5) = \frac{\alpha f(5|B)}{\alpha f(5|B) + (1-\alpha)f(5|W)} \]
+where $\alpha$ is the prior probability $P(B)$.
+
+\paragraph{2) Normal Density Formula} \leavevmode \\
+The probability density function for a normally distributed random variable with mean $\mu$ and variance $\sigma^2$:
+\[ f(x) = \frac{1}{\sigma\sqrt{2\pi}}e^{-\frac{(x-\mu)^2}{2\sigma^2}} \]
+
+\paragraph{3) Law of Total Probability} \leavevmode \\
+Used to find the overall probability of an event by considering all mutually exclusive scenarios:
+\[ P(X>t) = p_1 P(X>t|T=1) + p_2 P(X>t|T=2) \]
+
+\paragraph{4) Leibniz's Rule} \leavevmode \\
+Applied when differentiating an integral whose limits depend on the variable of differentiation ($z$):
+\[ \frac{d}{dz} \int_{-z}^{z} g(x, z) dx \]
+This is crucial for finding the PDF of a transformed variable $Z = \sqrt{X^2 + Y^2}$.
+
+\vspace{0.5cm}
+
+\section*{4) Important Examples}
+
+\paragraph{Example 1: Finding Probability on a Line Segment}
+\begin{itemize}
+    \item \textbf{Context:} A point is chosen at random on a line segment of length $L$. Find the probability that the ratio of the shorter to the longer segment is less than $1/4$.
+    \item \textbf{Process:}
+    \begin{enumerate}
+        \item Let the point be at distance $x$ from one end, where $0 < x < L$.
+        \item The ratio $R = \frac{\min(x, L-x)}{\max(x, L-x)}$.
+        \item \textbf{Case 1 ($x \le L/2$):} $\frac{x}{L-x} < \frac{1}{4} \Rightarrow 4x < L-x \Rightarrow x < L/5$.
+        \item \textbf{Case 2 ($x > L/2$):} $\frac{L-x}{x} < \frac{1}{4} \Rightarrow 4L - 4x < x \Rightarrow x > 4L/5$.
+        \item \textbf{Valid region:} $(0, L/5) \cup (4L/5, L)$. Total length = $2L/5$.
+        \item \textbf{Probability:} $P = \frac{2L/5}{L} = \frac{2}{5}$.
+    \end{enumerate}
+\end{itemize}
+
+\paragraph{Example 2: Conditional Poisson Distribution}
+\begin{itemize}
+    \item \textbf{Context:} Given $X \sim \text{Poisson}(\lambda_1)$ and $Y \sim \text{Poisson}(\lambda_2)$ are independent, find $P(X=k | X+Y=n)$.
+    \item \textbf{Process:}
+    \begin{enumerate}
+        \item \textbf{Formula:} $P(X=k|X+Y=n) = \frac{P(X=k)P(Y=n-k)}{P(X+Y=n)}$.
+        \item \textbf{Substitute PMFs:} \[\frac{\left(\frac{e^{-\lambda_1}\lambda_1^k}{k!}\right)\left(\frac{e^{-\lambda_2}\lambda_2^{n-k}}{(n-k)!}\right)}{\frac{e^{-(\lambda_1+\lambda_2)}(\lambda_1+\lambda_2)^n}{n!}}\]
+        \item \textbf{Simplify:} This gathers into a binomial structure:
+        \[= \binom{n}{k} \left(\frac{\lambda_1}{\lambda_1+\lambda_2}\right)^k \left(\frac{\lambda_2}{\lambda_1+\lambda_2}\right)^{n-k}\]
+    \end{enumerate}
+\end{itemize}
+
+\paragraph{Example 3: Joint CDF of Successive Maximums}
+\begin{itemize}
+    \item \textbf{Context:} Find the joint distribution of $M_n = \max(X_1, \dots, X_n)$ and $M_{n+1} = \max(M_n, X_{n+1})$.
+    \item \textbf{Process:}
+    \begin{enumerate}
+        \item \textbf{Case 1 ($x \le y$):} Both $M_n \le x$ and $X_{n+1} \le y$ must occur.
+        \[P(M_n \le x, M_{n+1} \le y) = F(x)^n F(y)\]
+        \item \textbf{Case 2 ($x > y$):} If $M_{n+1} \le y$, then $M_n$ is naturally $\le y$, which satisfies $M_n \le x$.
+        \[P(M_n \le x, M_{n+1} \le y) = P(M_{n+1} \le y) = F(y)^{n+1}\]
+        \item \textbf{Final Joint CDF:} \[P(M_n \le x, M_{n+1} \le y) = \begin{cases} F(x)^n F(y), & x \le y \\ F(y)^{n+1}, & x > y \end{cases}\]
+    \end{enumerate}
+\end{itemize}
+
+\vspace{0.5cm}
+
+\section*{5) List of Important Formulas}
+
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.8} % Increases row spacing for a cleaner look
+\setlength{\tabcolsep}{12pt}     % Increases horizontal cell padding
+\begin{tabular}{ll}
+\toprule
+\textbf{Formula / Concept} & \textbf{Result} \\
+\midrule
+\textbf{Uniform PDF} & $f_X(x) = \frac{1}{A}$ for $0 \le x \le A$ \\
+\textbf{Exponential PDF} & $f_X(x) = \lambda e^{-\lambda x}$ \\
+\textbf{Poisson PMF} & $P(X=k) = \frac{e^{-\lambda}\lambda^k}{k!}$ \\
+\textbf{Binomial PMF} & $P(k) = \binom{n}{k}p^k(1-p)^{n-k}$ \\
+\textbf{Exponential Survival} & $P(X > t) = e^{-\lambda t}$ \\
+\textbf{Conditional Prob.} & $P(A|B) = \frac{P(A \cap B)}{P(B)}$ \\
+\textbf{Transformed PDF} & $f_Y(y) = f_X(x) \left| \frac{dx}{dy} \right|$ \\
+\textbf{Optimal Station ($U$)} & $a = \frac{A}{2}$ (Midpoint) \\
+\textbf{Optimal Station ($Exp$)} & $a = \frac{\ln 2}{\lambda}$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\end{document}
