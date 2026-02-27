@@ -1,0 +1,7 @@
+Requirements
+
+Python Libraries used in this code are
+1. NumPy
+2. Matplotlib
+
+We also need to install Sumo Traffic Simulator
