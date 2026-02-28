@@ -1,0 +1,362 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{geometry}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{fancyhdr}
+
+\geometry{margin=1in}
+
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{CSE 400: Fundamentals of Probability in Computing}
+\lhead{Tutorial-2 Scribe}
+\rfoot{\thepage}
+
+\title{
+School of Engineering and Applied Science (SEAS)\\
+Ahmedabad University\\[0.3cm]
+\textbf{CSE 400: Fundamentals of Probability in Computing}\\
+\textbf{Tutorial-2 Scribe}
+}
+\date{February 2026}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{fancy}
+
+\section*{Q1. Random Point on Line Segment}
+
+Let a point be chosen uniformly on $(0,L)$.  
+Let the point be at distance $x$ from one end.
+
+Two segments: $x$ and $L-x$.
+
+\[
+R = \frac{\min(x,L-x)}{\max(x,L-x)}
+\]
+
+We want:
+\[
+P\left(R < \frac{1}{4}\right)
+\]
+
+\textbf{Case 1:} $x \le \frac{L}{2}$
+
+\[
+\frac{x}{L-x} < \frac{1}{4}
+\Rightarrow 4x < L-x
+\Rightarrow 5x < L
+\Rightarrow x < \frac{L}{5}
+\]
+
+\textbf{Case 2:} $x > \frac{L}{2}$
+
+\[
+\frac{L-x}{x} < \frac{1}{4}
+\Rightarrow 4(L-x) < x
+\Rightarrow 5x > 4L
+\Rightarrow x > \frac{4L}{5}
+\]
+
+Valid region:
+\[
+(0,\tfrac{L}{5}) \cup (\tfrac{4L}{5},L)
+\]
+
+Total valid length:
+\[
+\frac{2L}{5}
+\]
+
+Since uniform over length $L$:
+\[
+P = \frac{2L/5}{L} = \frac{2}{5}
+\]
+
+---
+
+\section*{Q2. Bayesian Classification with Normal Densities}
+
+Given:
+\[
+X|W \sim N(4,4), \quad X|B \sim N(6,9)
+\]
+\[
+P(B)=\alpha, \quad P(W)=1-\alpha
+\]
+
+Observed: $X=5$
+
+Equal error condition:
+\[
+P(B|X=5)=P(W|X=5)=\frac{1}{2}
+\]
+
+Using Bayes' theorem:
+
+\[
+\frac{\alpha f(5|B)}{\alpha f(5|B)+(1-\alpha)f(5|W)} = \frac{1}{2}
+\]
+
+Normal density:
+\[
+f(x)=\frac{1}{\sigma\sqrt{2\pi}}e^{-\frac{(x-\mu)^2}{2\sigma^2}}
+\]
+
+\[
+f(5|B)=\frac{1}{3\sqrt{2\pi}}e^{-1/18}
+\]
+\[
+f(5|W)=\frac{1}{2\sqrt{2\pi}}e^{-1/8}
+\]
+
+Solving:
+
+\[
+3\alpha = 2(1-\alpha)e^{-5/72}
+\]
+
+\[
+\alpha \approx 0.3827
+\]
+
+---
+
+\section*{Q3. Minimizing Expected Distance}
+
+\subsection*{(a) Uniform Case}
+
+$X \sim \text{Uniform}(0,A)$
+
+\[
+E[|X-a|] = \int_0^a (a-x)\frac{1}{A}dx
++ \int_a^A (x-a)\frac{1}{A}dx
+\]
+
+Differentiating and solving:
+
+\[
+a = \frac{A}{2}
+\]
+
+\subsection*{(b) Exponential Case}
+
+$X \sim \text{Exponential}(\lambda)$
+
+\[
+E[|X-a|] =
+\int_0^a (a-x)\lambda e^{-\lambda x}dx
++
+\int_a^\infty (x-a)\lambda e^{-\lambda x}dx
+\]
+
+Derivative:
+
+\[
+1 - 2e^{-\lambda a} = 0
+\]
+
+\[
+a = \frac{\ln 2}{\lambda}
+\]
+
+---
+
+\section*{Q4. Mixture of Exponentials}
+
+Lifetime:
+
+\[
+P(X>t)=p_1e^{-\lambda_1 t}+p_2e^{-\lambda_2 t}
+\]
+
+\[
+P(X>t+s)=p_1e^{-\lambda_1(t+s)}+p_2e^{-\lambda_2(t+s)}
+\]
+
+Conditional probability:
+
+\[
+P(X>t+s|X>t)
+=
+\frac{p_1e^{-\lambda_1(t+s)}+p_2e^{-\lambda_2(t+s)}}
+{p_1e^{-\lambda_1 t}+p_2e^{-\lambda_2 t}}
+\]
+
+---
+
+\section*{Q5. Conditional Poisson Distribution}
+
+\[
+X \sim \text{Poisson}(\lambda_1)
+\]
+\[
+Y \sim \text{Poisson}(\lambda_2)
+\]
+
+\[
+P(X=k|X+Y=n)
+=
+\binom{n}{k}
+\left(\frac{\lambda_1}{\lambda_1+\lambda_2}\right)^k
+\left(\frac{\lambda_2}{\lambda_1+\lambda_2}\right)^{n-k}
+\]
+
+---
+
+\section*{Q6. Transformation of Uniform Random Variable}
+
+Given:
+\[
+X \sim \text{Uniform}[-2,2]
+\]
+
+\[
+g(x)=
+\begin{cases}
+x, & x\in[-2,-1]\\
+0, & x\in(-1,1)\\
+x, & x\in[1,2]
+\end{cases}
+\]
+
+\subsection*{CDF}
+
+Piecewise:
+
+\[
+F_Y(y)=
+\begin{cases}
+0, & y<-2\\
+\frac{y+2}{4}, & -2\le y<-1\\
+\frac{1}{4}, & -1\le y<0\\
+\frac{3}{4}, & 0<y<1\\
+\frac{y+2}{4}, & 1\le y\le 2\\
+1, & y>2
+\end{cases}
+\]
+
+Point mass:
+
+\[
+P(Y=0)=\frac{1}{2}
+\]
+
+\subsection*{PDF}
+
+\[
+f_Y(y)=
+\begin{cases}
+\frac{1}{4}, & -2<y<-1\\
+\frac{1}{4}, & 1<y<2\\
+0, & \text{otherwise}
+\end{cases}
+\]
+
+with $P(Y=0)=\frac{1}{2}$.
+
+---
+
+\section*{Q7. Stock Model Approximation}
+
+\[
+S_{1000}=S_0 u^k d^{1000-k}
+\]
+
+Condition:
+
+\[
+u^k d^{1000-k}\ge 1.30
+\]
+
+Taking logs:
+
+\[
+k\ge 470
+\]
+
+\[
+k\sim \text{Binomial}(1000,0.52)
+\]
+
+\[
+P(k\ge 470)
+=
+\sum_{k=470}^{1000}
+\binom{1000}{k}
+(0.52)^k (0.48)^{1000-k}
+\]
+
+---
+
+\section*{Q8. Exponential Repair Time}
+
+$\lambda=\frac{1}{2}$
+
+\subsection*{(a)}
+
+\[
+P(X>2)=e^{-1}
+\]
+
+\subsection*{(b)}
+
+\[
+P(X\ge 10|X>9)=\frac{e^{-5}}{e^{-9/2}}=e^{-1/2}
+\]
+
+---
+
+\section*{Q9. Distribution of $Z=\sqrt{X^2+Y^2}$}
+
+\[
+F_Z(z)=
+\iint_{x^2+y^2\le z^2}
+f_X(x)f_Y(y)\,dx\,dy
+\]
+
+PDF:
+
+\[
+f_Z(z)
+=
+z\int_{-z}^{z}
+f_X(x)
+\frac{
+f_Y(\sqrt{z^2-x^2})
++
+f_Y(-\sqrt{z^2-x^2})
+}{
+\sqrt{z^2-x^2}
+}
+dx
+\]
+
+for $z>0$.
+
+---
+
+\section*{Q10. Joint Distribution of $M_n$ and $M_{n+1}$}
+
+\[
+M_n=\max(X_1,\dots,X_n)
+\]
+
+\[
+P(M_n\le x)=F(x)^n
+\]
+
+Joint CDF:
+
+\[
+P(M_n\le x,M_{n+1}\le y)
+=
+\begin{cases}
+F(x)^nF(y), & x\le y\\
+F(y)^{n+1}, & x>y
+\end{cases}
+\]
+
+\end{document}
