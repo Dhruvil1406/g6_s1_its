@@ -1,0 +1,5 @@
+here is the prompt i gave to gemini:
+
+Kindly function as a professional academic scribe writer. Prepare a LaTeX-formatted scribe document for the file “Tutorial_2”, using “Tutorial_2_Solution” strictly for guidance and clarification where necessary. The document should be written clearly, concisely, and in well-structured paragraph form so that it can effectively support exam preparation.
+Please ensure that the original material from “Tutorial_2” is preserved accurately in meaning, structure, and scope without altering or omitting any essential content. Do not introduce any new material beyond what is contained in the original file, and do not directly incorporate or copy content from the solution/reference file. Include all formulas required for the lecture wherever applicable, ensuring correctness and completeness.
+Follow the lecture’s original organization and maintain consistency with the formatting style demonstrated in “group_6_ITS_project_scribe (1).pdf”. The final response should consist exclusively of properly structured LaTeX code that can be compiled directly.
