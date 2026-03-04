@@ -1,0 +1,76 @@
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath, amssymb, amsfonts, amsthm}
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+
+\begin{document}
+
+\begin{center}
+    \textbf{\Large School of Engineering and Applied Science (SEAS), Ahmedabad University} \\
+    \vspace{5pt}
+    \textbf{CSE 400: Fundamentals of Probability in Computing} \\
+    \vspace{5pt}
+    \textbf{Tutorial-2: Probabilistic Reasoning and Continuous Distributions} \\
+    \vspace{5pt}
+    Date: February 20, 2026
+\end{center}
+
+\hr
+\vspace{10pt}
+
+\section{Introduction}
+This scribe document summarizes the problems and conceptual frameworks discussed in Tutorial-2. The session focused on the application of continuous probability distributions, Bayes' Theorem in a continuous context, optimization of expected values, and the transformation of random variables. These problems serve as a foundation for understanding reliability and decision-making under uncertainty.
+
+\section{Geometric Probability and Ratios}
+The first problem considers a point chosen at random on a line segment of length $L$. This scenario is modeled using a uniform distribution over the interval $[0, L]$. If $x$ represents the distance from one end, the segment is divided into two lengths: $x$ and $L-x$. 
+
+The objective is to find the probability that the ratio of the shorter segment to the longer segment is less than $1/4$. This requires analyzing the ratio $R = \frac{\min(x, L-x)}{\max(x, L-x)}$ across two symmetric cases:
+\begin{itemize}
+    \item \textbf{Case 1 ($x \le L/2$):} The condition becomes $\frac{x}{L-x} < \frac{1}{4}$, which simplifies to $x < L/5$.
+    \item \textbf{Case 2 ($x > L/2$):} The condition becomes $\frac{L-x}{x} < \frac{1}{4}$, which simplifies to $x > 4L/5$.
+\end{itemize}
+The total length of the valid regions is the sum of these two intervals, and the probability is the ratio of this sum to the total length $L$.
+
+\section{Bayesian Classification in Imaging}
+In an image partitioned into white ($W$) and black ($B$) regions, readings taken from points are modeled as normally distributed random variables. Specifically:
+\begin{itemize}
+    \item $X|W \sim N(\mu_1, \sigma_1^2)$ where $\mu_1=4, \sigma_1^2=4$.
+    \item $X|B \sim N(\mu_2, \sigma_2^2)$ where $\mu_2=6, \sigma_2^2=9$.
+\end{itemize}
+Given a specific reading $X=5$ and a fraction of the image being black ($\alpha$), we determine the value of $\alpha$ that makes the probability of a classification error equal for both regions. This occurs when the posterior probabilities are equal: $P(B|X=5) = P(W|X=5) = 1/2$. By applying Bayes' Theorem and the normal density formula $f(x) = \frac{1}{\sigma\sqrt{2\pi}}e^{-\frac{(x-\mu)^2}{2\sigma^2}}$, one can solve for the prior probability $\alpha$.
+
+\section{Facility Location Optimization}
+This section explores where to locate a fire station to minimize the expected distance to a fire, $\mathbb{E}[|X-a|]$.
+\subsection{Uniform Distribution}
+For a road of finite length $A$ where fires occur uniformly, the PDF is $f_X(x) = 1/A$ for $0 \le x \le A$. Minimizing the expected distance involves differentiating the integral $\int_{0}^{A} |x-a| f_X(x) dx$ with respect to $a$. The optimal location is found to be the midpoint, $a = A/2$.
+
+\subsection{Exponential Distribution}
+For an infinite road where the distance of a fire follows an exponential distribution with rate $\lambda$, the PDF is $f_X(x) = \lambda e^{-\lambda x}$. The expected distance is minimized by setting the derivative of $\mathbb{E}[|X-a|]$ to zero, which leads to the location $a = \frac{\ln 2}{\lambda}$.
+
+\section{Conditional Reliability and Lifetimes}
+Consider two types of batteries with exponential lifetimes with rates $\lambda_1$ and $\lambda_2$. A battery chosen with probabilities $p_1$ and $p_2$ is still operating after $t$ hours. We seek the probability it will survive an additional $s$ hours, denoted as $P(X > t+s | X > t)$. Using the Law of Total Probability:
+$$P(X > t) = p_1 e^{-\lambda_1 t} + p_2 e^{-\lambda_2 t}$$
+The conditional probability is then calculated as the ratio $\frac{P(X > t+s)}{P(X > t)}$.
+
+\section{Poisson Processes and Binomial Structures}
+When two independent Poisson processes $X \sim \text{Poisson}(\lambda_1)$ and $Y \sim \text{Poisson}(\lambda_2)$ represent requests, the conditional probability of $k$ requests from one source given a total of $n$ requests is investigated. By substituting the Poisson PMFs into $P(X=k | X+Y=n)$, the expression simplifies into a Binomial distribution:
+$$P(X=k | X+Y=n) = \binom{n}{k} \left( \frac{\lambda_1}{\lambda_1 + \lambda_2} \right)^k \left( \frac{\lambda_2}{\lambda_1 + \lambda_2} \right)^{n-k}$$
+
+\section{Random Variable Transformations}
+Given $X \sim \text{Uniform}[-2, 2]$ and a piecewise function $Y=g(X)$, the task is to find the Cumulative Distribution Function (CDF) and Probability Density Function (PDF) of $Y$.
+The function $g(x)$ maps intervals $[-2, -1]$ and $[1, 2]$ to themselves while mapping the interval $(-1, 1)$ to a single point mass at $0$. This results in a mixed distribution where $F_Y(y)$ has a jump discontinuity at $y=0$ with magnitude $P(Y=0) = 1/2$. The PDF $f_Y(y)$ consists of the derivative of the continuous parts and a point mass.
+
+\section{Stock Price Approximation}
+Stock movement is modeled as a sequence of independent periods where the price either increases (factor $u$) or decreases (factor $d$). After $n=1000$ periods, the price $S_n$ depends on the number of up-moves $k$. To find the probability that the price increases by at least 30\%, we solve $u^k d^{n-k} \ge 1.30$. Taking natural logs allows us to find the threshold for $k$, which follows a Binomial distribution $k \sim \text{Binomial}(n, p)$.
+
+\section{Joint Distributions of Order Statistics}
+For i.i.d. variables $X_i$ with CDF $F$, we define $M_n = \max(X_1, \dots, X_n)$. The joint CDF $P(M_n \le x, M_{n+1} \le y)$ is derived by considering two cases:
+\begin{itemize}
+    \item If $x \le y$: The condition requires $M_n \le x$ and $X_{n+1} \le y$.
+    \item If $x > y$: The condition $M_{n+1} \le y$ implies $M_n \le y$, which is a subset of $M_n \le x$.
+\end{itemize}
+This results in the joint CDF:
+$$P(M_n \le x, M_{n+1} \le y) = \begin{cases} F(x)^n F(y) & x \le y \\ F(y)^{n+1} & x > y \end{cases}$$
+
+\end{document}
