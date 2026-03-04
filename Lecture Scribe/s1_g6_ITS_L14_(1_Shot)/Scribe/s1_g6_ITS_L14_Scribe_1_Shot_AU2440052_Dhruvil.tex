@@ -1,0 +1,390 @@
+\documentclass[11pt]{article}
+
+% ===================== PACKAGES =====================
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{xcolor}
+
+% ===================== HEADER & FOOTER =====================
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{CSE 400: Fundamentals of Probability in Computing}
+\lhead{Tutorial 2 -- Complete Scribe}
+\rfoot{\thepage}
+
+% ===================== DOCUMENT =====================
+\begin{document}
+
+\begin{center}
+    \Large \textbf{CSE 400: Fundamentals of Probability in Computing}\\
+    \large Tutorial 2 -- Complete Refactored Scribe\\
+    \normalsize School of Engineering and Applied Science (SEAS)\\
+    February 2026
+\end{center}
+
+\vspace{0.5cm}
+
+% ==========================================================
+\section{Problem 1: Random Break of a Line Segment}
+
+\subsection*{Modeling and Notation}
+
+Let a point be chosen uniformly on $(0,L)$.  
+Let $X$ denote the distance from one endpoint.
+
+\[
+X \sim \text{Uniform}(0,L), \quad f_X(x)=\frac{1}{L}
+\]
+
+Two segments formed:
+\[
+X \quad \text{and} \quad L-X
+\]
+
+Define ratio:
+\[
+R = \frac{\min(X,L-X)}{\max(X,L-X)}
+\]
+
+\subsection*{Derivation}
+
+We solve:
+\[
+\frac{\min(X,L-X)}{\max(X,L-X)} < \frac14
+\]
+
+Case 1: $X \le L/2$
+\[
+\frac{X}{L-X} < \frac14
+\Rightarrow 4X < L-X
+\Rightarrow 5X < L
+\Rightarrow X < \frac{L}{5}
+\]
+
+Case 2: $X > L/2$
+\[
+\frac{L-X}{X} < \frac14
+\Rightarrow 4L - 4X < X
+\Rightarrow 5X > 4L
+\Rightarrow X > \frac{4L}{5}
+\]
+
+Valid region:
+\[
+(0, L/5) \cup (4L/5, L)
+\]
+
+Total length:
+\[
+\frac{2L}{5}
+\]
+
+\[
+P = \frac{2L/5}{L} = \boxed{\frac{2}{5}}
+\]
+
+% ==========================================================
+\section{Problem 2: Bayes Classification with Normal Densities}
+
+\subsection*{Given}
+
+\[
+X|W \sim \mathcal{N}(4,4), \quad X|B \sim \mathcal{N}(6,9)
+\]
+
+\[
+P(B)=\alpha, \quad P(W)=1-\alpha
+\]
+
+Observed: $X=5$
+
+\subsection*{Bayes Theorem}
+
+\[
+P(B|X) =
+\frac{\alpha f(5|B)}
+{\alpha f(5|B)+(1-\alpha)f(5|W)}
+\]
+
+Equal error condition:
+\[
+P(B|5)=\frac12
+\]
+
+Using normal density:
+\[
+f(x)=\frac{1}{\sigma\sqrt{2\pi}}
+e^{-\frac{(x-\mu)^2}{2\sigma^2}}
+\]
+
+Substitution gives:
+
+\[
+\frac{3\alpha}{3\alpha+2(1-\alpha)e^{-5/72}}
+=\frac12
+\]
+
+Solving:
+
+\[
+\boxed{\alpha \approx 0.3827}
+\]
+
+% ==========================================================
+\section{Problem 3: Optimal Fire Station Location}
+
+\subsection*{(a) Uniform Case}
+
+\[
+X \sim \text{Uniform}(0,A)
+\]
+
+Minimize:
+\[
+E|X-a|
+\]
+
+After differentiation:
+
+\[
+\boxed{a = \frac{A}{2}}
+\]
+
+\textbf{Interpretation:} Median minimizes absolute deviation.
+
+\subsection*{(b) Exponential Case}
+
+\[
+X \sim \text{Exponential}(\lambda)
+\]
+
+\[
+\frac{d}{da}E|X-a|=1-2e^{-\lambda a}
+\]
+
+\[
+e^{-\lambda a}=\frac12
+\Rightarrow
+\boxed{a=\frac{\ln 2}{\lambda}}
+\]
+
+% ==========================================================
+\section{Problem 4: Mixture of Exponentials}
+
+Two types:
+\[
+P(T=i)=p_i
+\]
+
+\[
+P(X>t)=p_1 e^{-\lambda_1 t}+p_2 e^{-\lambda_2 t}
+\]
+
+\[
+P(X>t+s|X>t)
+=
+\frac{
+p_1 e^{-\lambda_1(t+s)}+
+p_2 e^{-\lambda_2(t+s)}
+}{
+p_1 e^{-\lambda_1 t}+
+p_2 e^{-\lambda_2 t}
+}
+\]
+
+\textbf{Note:} Mixture destroys memoryless property.
+
+% ==========================================================
+\section{Problem 5: Conditional Poisson → Binomial}
+
+\[
+X \sim \text{Poisson}(\lambda_1),
+\quad
+Y \sim \text{Poisson}(\lambda_2)
+\]
+
+Find:
+\[
+P(X=k|X+Y=n)
+\]
+
+After simplification:
+
+\[
+\boxed{
+P(X=k|X+Y=n)
+=
+\binom{n}{k}
+\left(
+\frac{\lambda_1}{\lambda_1+\lambda_2}
+\right)^k
+\left(
+\frac{\lambda_2}{\lambda_1+\lambda_2}
+\right)^{n-k}
+}
+\]
+
+\textbf{Result:} Conditional distribution is Binomial.
+
+% ==========================================================
+\section{Problem 6: Mixed Distribution Transformation}
+
+\[
+X \sim \text{Uniform}[-2,2]
+\]
+
+Transformation:
+
+\[
+g(x)=
+\begin{cases}
+x & [-2,-1] \\
+0 & (-1,1) \\
+x & [1,2]
+\end{cases}
+\]
+
+\subsection*{PDF}
+
+Continuous parts:
+
+\[
+f_Y(y)=\frac14
+\]
+
+Point mass:
+
+\[
+P(Y=0)=\frac12
+\]
+
+\textbf{Important:} Combination of continuous + discrete distribution.
+
+% ==========================================================
+\section{Problem 7: Stock Model and CLT Idea}
+
+After 1000 periods:
+
+\[
+S_{1000}=S_0 u^k d^{1000-k}
+\]
+
+Requirement:
+\[
+k \ge 470
+\]
+
+\[
+k \sim \text{Binomial}(1000,0.52)
+\]
+
+Probability:
+\[
+P(k \ge 470)
+=
+\sum_{k=470}^{1000}
+\binom{1000}{k}
+(0.52)^k(0.48)^{1000-k}
+\]
+
+\textbf{For exam:} Use Normal Approximation.
+
+% ==========================================================
+\section{Problem 8: Exponential Repair Time}
+
+\[
+f(x)=\frac12 e^{-x/2}
+\]
+
+\[
+P(X>2)=e^{-1}
+\]
+
+Memoryless property:
+
+\[
+P(X\ge 10|X>9)=e^{-1/2}
+\]
+
+% ==========================================================
+\section{Problem 9: Radius Transformation}
+
+\[
+Z=\sqrt{X^2+Y^2}
+\]
+
+CDF:
+
+\[
+F_Z(z)
+=
+\iint_{x^2+y^2 \le z^2}
+f_X(x)f_Y(y)\,dxdy
+\]
+
+PDF:
+
+\[
+f_Z(z)
+=
+z
+\int_{-z}^{z}
+\frac{
+f_X(x)\left[
+f_Y(\sqrt{z^2-x^2})+
+f_Y(-\sqrt{z^2-x^2})
+\right]
+}{
+\sqrt{z^2-x^2}
+}
+dx
+\]
+
+\textbf{Technique:} Differentiate CDF using Leibniz Rule.
+
+% ==========================================================
+\section{Problem 10: Joint Distribution of Maxima}
+
+\[
+M_n=\max(X_1,\dots,X_n)
+\]
+
+\[
+P(M_n \le x)=F(x)^n
+\]
+
+Joint CDF:
+
+\[
+P(M_n \le x, M_{n+1} \le y)
+=
+\begin{cases}
+F(x)^n F(y), & x \le y \\
+F(y)^{n+1}, & x > y
+\end{cases}
+\]
+
+% ==========================================================
+\section{Complete Exam Revision Summary}
+
+\begin{itemize}
+
+\item Uniform distributions → geometric probability.
+\item Median minimizes $E|X-a|$.
+\item Bayes theorem + likelihood ratio.
+\item Exponential distribution → memoryless.
+\item Mixture ≠ memoryless.
+\item Poisson conditional → Binomial.
+\item CLT for large Binomial.
+\item Transformations may create mixed distributions.
+\item Use Leibniz rule for variable-limit integrals.
+\item Max of i.i.d. → $F(x)^n$ structure.
+
+\end{itemize}
+
+\bigskip
+\centerline{\Large \textbf{End of Tutorial 2 Complete Scribe}}
+
+\end{document}
